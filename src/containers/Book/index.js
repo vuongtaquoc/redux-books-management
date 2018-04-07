@@ -12,29 +12,25 @@ class Book extends React.Component {
     const { match } = this.props
     const { action, bookId } = match.params
 
-    this.state = {
-      action,
-      bookId
-    }
+    this.action = action
+    this.bookId = bookId
   }
   componentDidMount() {
     const { dispatch } = this.props
-    const { action, bookId } = this.state
 
-    if (action === 'detail') {
-      dispatch(fetchBook(bookId))
+    if (this.action === 'detail') {
+      dispatch(fetchBook(this.bookId))
     }
   }
 
   render() {
-    const { action } = this.state
     const { book, isUpdated } = this.props
 
     if (isUpdated) {
       return <Redirect to="/" />
     }
     
-    if (action === 'detail' && !book) {
+    if (this.action === 'detail' && !book) {
       return null
     }
 
@@ -44,7 +40,7 @@ class Book extends React.Component {
 
     return (
       <div>
-        {this._renderPageTitle(action, book)}
+        {this._renderPageTitle(this.action, book)}
         <Form 
           initialValues={initialValues}
           onSubmit={this._processSaveBook()}
