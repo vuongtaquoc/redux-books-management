@@ -23,5 +23,8 @@ export const list = {
   buttonAdd: {
     ...button.blue,
     marginBottom: 10
+  },
+  pagination: {
+    marginTop: 20
   }
 }

@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import BookItem from './Item'
-
 import { list } from './style'
 
 class BookList extends React.Component {
@@ -11,8 +9,6 @@ class BookList extends React.Component {
 
     return (
       <div>
-        <h1 style={list.title}>List books</h1>
-        <Link to="/books/add" style={list.buttonAdd}>Add book</Link>
         <table style={list.table}>
           <thead>
             <tr>
@@ -27,10 +23,20 @@ class BookList extends React.Component {
           </thead>
           <tbody>
             {books.map((book, index) => {
-              return <BookItem 
-                book={book} 
-                key={index} 
-                onProcessRemoveBook={onProcessRemoveBook} />
+              return (
+                <tr key={index}>
+                  <td style={list.column}>{book.id}</td>
+                  <td style={list.column}><img src={book.imageUrl} alt={book.title} /></td>
+                  <td style={list.column}>{book.title}</td>
+                  <td style={list.column}>{book.author}</td>
+                  <td style={list.column}>{book.price}</td>
+                  <td style={list.column}>{book.isbn}</td>
+                  <td style={list.column}>
+                    <Link style={list.buttonEdit} to={`/books/detail/${book.id}`}>Edit</Link>
+                    <a style={list.buttonDelete} onClick={() => onProcessRemoveBook(book)}>Delete</a>
+                  </td>
+                </tr>
+              )
             })}
           </tbody>
         </table>

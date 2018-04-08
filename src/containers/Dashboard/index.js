@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom'
 
 import { fetchBooks, removeBook } from '../../actions/book'
 
-import BookList from '../../components/books/List'
+import Books from '../../components/books'
 
 class Dashboard extends React.Component {
   componentDidMount() {
@@ -14,18 +14,25 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { books } = this.props;
+    const { books } = this.props
 
-    return <BookList 
+    return <Books 
       books={books} 
-      onProcessRemoveBook={this._processRemoveBook()} />
+      onProcessRemoveBook={this._processRemoveBook()}
+      onProcessPageChange={this._processPageChange()} />
   }
 
   _processRemoveBook() {
     return (book) => {
-      const { dispatch } = this.props;
+      const { dispatch } = this.props
 
       dispatch(removeBook(book))
+    }
+  }
+
+  _processPageChange() {
+    return (data) => {
+      console.log(data)
     }
   }
 }
